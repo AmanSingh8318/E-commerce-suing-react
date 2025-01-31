@@ -2,27 +2,15 @@
 //   new code     
  import { React, useEffect, useState } from 'react';
   
+import { ID } from 'appwrite';
 import { createContext, useContext } from "react";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import authService from "../appwrite/auth";
 import all_product from "../Assets/all_product";
-
 // Create Context
 const StoreContext = createContext({
-  userData:null,
-  cart: [],
-  addCart: () => {},
-  removeCart: () => {},
-  getDefaultCart: () => {},
-  notify: () => {},
-  totalAmount: () => {},
-  login: (data) => {},
-  logout: () => {},
-  createAccount:(data)=>{},
-  getuser:()=>{},
-  plsLogin:()=>{}
-
+  
 });
 
                                                         // Notification Functions
@@ -67,38 +55,47 @@ const StoreProvider = ({ children }) => {
 
 
                                         
-                          // LOGIN SIGNUP CREATE ACCOUNT 
+                                           // LOGIN SIGNUP CREATE ACCOUNT 
                                           const[userData,setUserData]=useState(null);
-                                         const[userStatus,setUserStatus]=useState(false);
+                                         const[userStatus,setUserStatus]=useState(true);
                                           const[verfied,setIsverfied]=useState(false);
-                                        
-                                         useEffect(()=>{
-                                        
-                                           const getUser=async()=>{
-                                            setUserStatus(true);
-                                             const users=await authService.getCurrentUser();
-                                            if (users) {
-                                              setUserData(users);
-                                              setIsverfied(users.emailVerification);
-}
-                                          
-                                         setUserStatus(false);
-                                         setIsverfied(false)
-                                          }
-                                          getUser();
-                                         
-                                       },[userData])                               
+   
+// get the current user and setuser status         
+ useEffect(()=>{
+                                      
+  const getUser=async()=>{
+   setUserStatus(true);
+    const users=await authService.getCurrentUser();
+   if (users) {
+     setUserData(users);
+     return
+     // setIsverfied(users.emailVerification);
+   }
+ }
+ getUser();
+
+},[])          
+
                                          const   createAccount=async(data)=>{
                                            try {
-                                            setUserStatus(true);
-                                             const user= await  authService.createAccount({
-                                              name:data.name,
-                                              email:data.email,
-                                              password:data.password
+                                            // setUserStatus(true);
 
+                                            const existingUser = await authService.getCurrentUser();
+                                            if (existingUser) {
+                                              toast.warning("User already exists. Please login.");
+                                              return; // Stop further execution
+                                            }
+                                                  
+                                             const user= await  authService.createAccount({
+                                           id:ID.unique(),
+                                              email:data.email,
+                                              password:data.password,
+                                              name:data.name,
                                              })
-                                             setUserData(user);
-                                             toast("Account created successfully!");
+                                            //  setUserData(user);
+                                             setUserStatus(true)
+                                             toast("email verfication sent on email")
+                                            //  window.location.href="/login"
                                               console.log(user);
                                               
                                            } catch (error) {
@@ -107,22 +104,38 @@ const StoreProvider = ({ children }) => {
                                            }
                                            setUserStatus(false);
                                         }
+ // login method
+ const login = async (data) => {
+  setUserStatus(true);
+  try {
+    const session = await authService.login({
+      email: data.email,
+      password: data.password,
+    });
+   return session;
+  //   const user = await authService.getCurrentUser();
 
-                                        const login = async (data) => {
-                                          try {
-                                            const session= await authService.login({
-                                              email:data.email,
-                                              password:data.password
-                                             })
-                                             console.log("session is created",session);
-                                             
-                                            loginNotify();
-                                            return session;
-                                          } catch (error) {
-                                            
-                                          }
-                                        };
-                                           console.log("user data",userData);
+  //   if (user && user.emailVerification) {
+  //     // ✅ Ensure state is updated before proceeding
+  //     setUserData(user);
+  //     toast.success("Login successfully...!");
+  //     return session;
+  //   } else {
+  //     // ❌ If email is NOT verified, delete session & show error
+  //     setUserData(null);
+  //     await authService.logout();
+  //     toast.error("Please verify your email before logging in.");
+  //     return { success: false, message: "Email not verified" };
+  //   }
+  } catch (error) {
+    console.error("Login Error:", error);
+    toast.error("Login failed! Please check your credentials.");
+    return { success: false, error };
+  } finally {
+    setUserStatus(false);
+  }
+};
+
                                            // LOGOUT 
                                         const logout =async () => {
                                            try {
@@ -138,7 +151,8 @@ const StoreProvider = ({ children }) => {
                                          
                                         };
 
-                                       
+                                        // verify the email 
+                                        const VerifyEmail=()=>{}
                                           
 
   // Create the default cart
@@ -212,6 +226,7 @@ const getDefaultCart = () => {
 // Reset cart to default after order
         setcartitem(getDefaultCart());
        window.location.href="/"
+      // navigate('/')
             }, 7000);
     } else {
       toast("Your cart is empty! Please buy something.");
@@ -220,28 +235,35 @@ const getDefaultCart = () => {
 
   // Return the StoreContext.Provider with values
   return (
+    // <StoreContext.Provider value={{
+    //   // Notification
+    // </StoreContext.Provider>
     <StoreContext.Provider value={{
       addCart,
-      removeCart,
-      getDefaultCart,
-      cartitems,
-      orderSucess,
-      totalAmount,
-      login,
-      logout,
-      userData,
-      setUserData,
-      subscribeus,
-      empty_email,
-      plsLogin,
-      createAccount,
-      userStatus,
-      setUserStatus,
-      verfied,
-      setIsverfied
-    }}>
-      {children}
-      <ToastContainer />   // Notification
+        removeCart,
+        getDefaultCart,
+        cartitems,
+        orderSucess,
+        totalAmount,
+        login,
+        logout,
+        userData,
+        setUserData,
+        subscribeus,
+        empty_email,
+        plsLogin,
+        createAccount,
+        userStatus,
+        setUserStatus,
+        verfied,
+        setIsverfied,
+        VerifyEmail
+      }} >
+         {children}
+    
+      <ToastContainer />  
+   
+   
     </StoreContext.Provider>
   );
 };

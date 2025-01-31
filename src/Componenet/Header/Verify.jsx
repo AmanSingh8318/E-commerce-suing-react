@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import appwriteService from '../appwrite/auth';
+// import { StoreContext } from '../Store/store';
 function Verify() {
     const[message,setMeassage]=useState();
-    const [searchParams]=useSearchParams();
+    const searchParams= new URLSearchParams(window.location.search);
   const[verfied,setVerifed]=useState(false);
   const navigate=useNavigate();
-
+// const{verfied,setIsVerifed,VerifyEmail}=useContext(StoreContext)
   // take the verfication from the auth service 
-       const VerifyEmail=async(id,secret)=>{
+       const VerifyEmails=async(id,secret)=>{
             try {
                 await appwriteService.updateVerification({id,secret});
                 setMeassage("email is verfied successfully");
@@ -27,7 +28,7 @@ function Verify() {
         const id=searchParams.get("userId")
         const secretCode=searchParams.get('secret');
           if (id&&secretCode) {
-             VerifyEmail(id,secretCode);
+             VerifyEmails(id,secretCode);
           }
       },[])
 

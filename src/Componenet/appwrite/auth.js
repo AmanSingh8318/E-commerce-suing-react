@@ -11,58 +11,59 @@ export class AuthService {
     this.account = new Account(this.client);
   }
 
-  async createAccount({ email, password, name }) {
-    
-         try {
-          const userAccount = await this.account.create(ID.unique(),
-       email, password,  name); 
-       // if user account created then go  to verfication after that return the success messgae
-      if (userAccount) {
-        const verifed_user= await this.account.createVerification("https://localhost:5173/verify");
-          if (verifed_user) {
-            // window.location.replace("/login")
-            history.pushState({}, "", "/login");
-
-          }
-        return {success:true, message:"emai; verifcation sent"}
-    }
-        return userAccount;  // if user is not verified simply return it
-         } catch (error) {
-          throw error;
-         }
-  }
+                        async createAccount({  email,password,name }) {
+                          
+                              try {
+                                const userAccount = await this.account.create(ID.unique(), email,password,name); 
+                            // if user account created then go  to verfication after that return the success messgae
+                            if (userAccount) {
+                              // const verifed_user= 
+                              await this.account.createEmailPasswordSession(email,password)
+                              await this.account.createVerification( "http://localhost:5173/verify");
+                              return {success:true, message:"emai; verifcation sent", toast:("pls verify")}
+                          }
+                              // return userAccount;  // if user is not verified simply return it
+                              } catch (error) {
+                                throw error;
+                              }
+                        }
   
 
   async login({ email, password }) {
     try {
       // if the  session is created 
-       const session =await this.account.createEmailPasswordSession(email, password);
-        // get the current user 
-       const user=await this.account.get();
-
-        // now verfiy the user email is  
-        //  if (!user.emailVerification) {   
-        //   await this.account.deleteSession("current");
-        //   throw new Error("Email not verified. Please verify your email before logging in.");
-        //  }
-         return session;
+         
+      const session=await this.account.createEmailPasswordSession(email,password);
+      // fetch the current user 
+      const current_User=await this.account.get();
+       console.log("current user in login",current_User);
+       console.log(current_User.emailVerification);
+       
+        // if user is not verified return false and some error msg
+       if (current_User.emailVerification==false) {
+            
+        return { success: false, message: "Email not verified. Please verify your email." };
+      }
+      // return if the user is verfied
+      return { success: true, session };
+       
     } catch (error) {
       throw error;
     }
   }
 
-    // update the verfication 
-    async updateVerification(userId,secret){
-      try {
-        return  await this.updateVerification(userId,secret);
-      } catch (error) {
-        
-      }
-    }
+                             
 
   async getCurrentUser() {
    try {
-    return await this.account.get();
+    // get the current user 
+   const session= await this.account.get();
+   console.log("session in auth getcurrentuser",session);
+   
+       if (!session) {
+        return null;
+       }
+       return session;
    } catch (error) {
     console.log("Appwrite service:: getcurrentUser::error",error);
     
@@ -70,14 +71,30 @@ export class AuthService {
    return null;
   }
 
-  async logout() {
+   // update the verfication 
+   async updateVerification(userId,secret){
     try {
-      await this.account.deleteSessions();
+      // update the verfication based on the userId,& secret code 
+    const res=  await this.account.updateVerification(userId,secret);
+     const current_user=await this.account.getCurrentUser();
+      if (current_user) {
+      const session=  await this.account.createEmailPasswordSession(email,password);
+      return session;
+      }
+    return res;
     } catch (error) {
-      console.error("Appwrite service :: logout :: error", error);
+      
     }
   }
-}
+
+                            async logout() {
+                              try {
+                                await this.account.deleteSessions();
+                              } catch (error) {
+                                console.error("Appwrite service :: logout :: error", error);
+                              }
+                            }
+                          }
 
 const service = new AuthService();
 

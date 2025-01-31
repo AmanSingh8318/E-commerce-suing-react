@@ -6,7 +6,8 @@ import rating_full from '../Assets/star_icon.png';
 import "../Home.css";
 import { useStoreData } from '../Store/store';
 import Realted from './Realted';
-import "./SingleProduct.css";
+// import "./SingleProduct.css";
+
 
 function SingleProduct() {
   const { id } = useParams();

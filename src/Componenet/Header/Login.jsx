@@ -8,12 +8,13 @@ function Login() {
       const { register, handleSubmit, formState: { errors } } = useForm();
       const {logout,userData, userStatus,createAccount,verfied}=useContext(StoreContext);
      
+    console.log(" in login section",userData);
     
 const {login}=useContext(StoreContext)
   return (
    <> 
          
-     {userData && userData.emailVerification?
+     {userData?
         <div className='card'>
         <div className='card-header'>
         <i className="user-icon"></i>       
