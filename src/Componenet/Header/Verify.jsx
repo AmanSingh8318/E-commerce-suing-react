@@ -8,18 +8,21 @@ function Verify() {
     const searchParams= new URLSearchParams(window.location.search);
   const[verfied,setVerifed]=useState(false);
   const navigate=useNavigate();
-// const{verfied,setIsVerifed,VerifyEmail}=useContext(StoreContext)
+// const{}=useContext(StoreContext)
   // take the verfication from the auth service 
        const VerifyEmails=async(id,secret)=>{
             try {
-                await appwriteService.updateVerification({id,secret});
-                setMeassage("email is verfied successfully");
-                toast("verfication is done")
-                 setVerifed(true);
+             await appwriteService.updateVerification({id,secret});
+               
+                  setMeassage("email is verfied successfully");
+                  toast("verfication is done")
+                   setVerifed(true);
+                
+               
             } catch (error) {
                 console.log(error);
                 setMeassage("email is not verified")
-                toast.error("please verify")
+                // toast.error("please verify")
             }
        }
 
@@ -32,14 +35,17 @@ function Verify() {
           }
       },[])
 
-      // if the email is verfied naviagte to the login 
-        if (verfied) {
-          toast.success("Verification is compelted succesffuly pls login")
-          navigate("/login")
-         }else{
-          toast.error("please verify")
+     
+          useEffect(()=>{
+ // if the email is verfied naviagte to the login 
+ if (verfied) {
+  toast.success("Verification is compelted succesffuly pls login")
+  navigate("/login")
+ }else{
+  toast.error("please verify")
 
-         }
+ }
+          },[verfied])
      
        
   return (

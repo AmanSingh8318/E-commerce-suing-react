@@ -61,20 +61,18 @@ const StoreProvider = ({ children }) => {
                                           const[verfied,setIsverfied]=useState(false);
    
 // get the current user and setuser status         
- useEffect(()=>{
-                                      
-  const getUser=async()=>{
-   setUserStatus(true);
-    const users=await authService.getCurrentUser();
-   if (users) {
-     setUserData(users);
-     return
-     // setIsverfied(users.emailVerification);
-   }
- }
- getUser();
-
-},[])          
+useEffect(() => {
+  const getUser = async () => {
+    setUserStatus(true);
+    const user = await authService.getCurrentUser();
+    if (user) {
+      setUserData(user);
+    }
+    setUserStatus(false);
+  };
+  
+  getUser();
+}, []);
 
                                          const   createAccount=async(data)=>{
                                            try {
@@ -92,12 +90,12 @@ const StoreProvider = ({ children }) => {
                                               password:data.password,
                                               name:data.name,
                                              })
-                                            //  setUserData(user);
                                              setUserStatus(true)
                                              toast("email verfication sent on email")
                                             //  window.location.href="/login"
                                               console.log(user);
-                                              
+                                              // setUserData(user);
+
                                            } catch (error) {
                                             console.log(error);
                                             
@@ -108,33 +106,28 @@ const StoreProvider = ({ children }) => {
  const login = async (data) => {
   setUserStatus(true);
   try {
+    // Login attempt
     const session = await authService.login({
       email: data.email,
       password: data.password,
     });
-   return session;
-  //   const user = await authService.getCurrentUser();
+   const user= await authService.getCurrentUser();
+    // Get user data
+   if (user ) {
+    setUserData(user);
 
-  //   if (user && user.emailVerification) {
-  //     // ✅ Ensure state is updated before proceeding
-  //     setUserData(user);
-  //     toast.success("Login successfully...!");
-  //     return session;
-  //   } else {
-  //     // ❌ If email is NOT verified, delete session & show error
-  //     setUserData(null);
-  //     await authService.logout();
-  //     toast.error("Please verify your email before logging in.");
-  //     return { success: false, message: "Email not verified" };
-  //   }
+   }
+    toast.success("Login successful!");
+    return session;
   } catch (error) {
     console.error("Login Error:", error);
-    toast.error("Login failed! Please check your credentials.");
+    toast.error("Invalid credentials! Please check your email and password.");
     return { success: false, error };
   } finally {
     setUserStatus(false);
   }
 };
+
 
                                            // LOGOUT 
                                         const logout =async () => {

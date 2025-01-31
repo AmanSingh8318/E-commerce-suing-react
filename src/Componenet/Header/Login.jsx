@@ -14,7 +14,7 @@ const {login}=useContext(StoreContext)
   return (
    <> 
          
-     {userData?
+     {userData &&userStatus?
         <div className='card'>
         <div className='card-header'>
         <i className="user-icon"></i>       

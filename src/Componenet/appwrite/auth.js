@@ -1,4 +1,5 @@
 import { Account, Client, ID } from "appwrite";
+import { toast } from "react-toastify";
 import ev from '../../ev_store/ev';
 export class AuthService {
   client = new Client();
@@ -11,22 +12,21 @@ export class AuthService {
     this.account = new Account(this.client);
   }
 
-                        async createAccount({  email,password,name }) {
-                          
-                              try {
-                                const userAccount = await this.account.create(ID.unique(), email,password,name); 
-                            // if user account created then go  to verfication after that return the success messgae
-                            if (userAccount) {
-                              // const verifed_user= 
-                              await this.account.createEmailPasswordSession(email,password)
-                              await this.account.createVerification( "http://localhost:5173/verify");
-                              return {success:true, message:"emai; verifcation sent", toast:("pls verify")}
-                          }
-                              // return userAccount;  // if user is not verified simply return it
-                              } catch (error) {
-                                throw error;
-                              }
-                        }
+  async createAccount({ email, password, name }) {
+    try {
+        const userAccount = await this.account.create(ID.unique(), email, password, name);
+
+        if (userAccount) {
+            await this.account.createEmailPasswordSession(email, password);
+            await this.account.createVerification("http://localhost:5173/verify");
+            toast.success("verfication email is sent")
+          // return userAccount;
+        }
+    } catch (error) {
+        console.error(error);
+    }
+}
+
   
 
   async login({ email, password }) {
@@ -38,21 +38,37 @@ export class AuthService {
       const current_User=await this.account.get();
        console.log("current user in login",current_User);
        console.log(current_User.emailVerification);
-       
+
         // if user is not verified return false and some error msg
-       if (current_User.emailVerification==false) {
-            
-        return { success: false, message: "Email not verified. Please verify your email." };
+       if (!current_User.emailVerification) {
+        return { success: false, message: "Email not verified. Please verify your email." };  
       }
-      // return if the user is verfied
       return { success: true, session };
+
        
     } catch (error) {
       throw error;
     }
   }
 
-                             
+                                              // update the verfication 
+   async updateVerification(userId,secret){
+    try {
+      // update the verfication based on the userId,& secret code 
+    const res=  await this.account.updateVerification(userId,secret);
+     if (res) {
+      const user=await this.account.getCurrentUser();
+       if (user) {
+        return{success:true}
+       }else {
+        return {success:false}
+       }
+     }
+    return res;
+    } catch (error) {
+      
+    }
+  }                      
 
   async getCurrentUser() {
    try {
@@ -71,21 +87,7 @@ export class AuthService {
    return null;
   }
 
-   // update the verfication 
-   async updateVerification(userId,secret){
-    try {
-      // update the verfication based on the userId,& secret code 
-    const res=  await this.account.updateVerification(userId,secret);
-     const current_user=await this.account.getCurrentUser();
-      if (current_user) {
-      const session=  await this.account.createEmailPasswordSession(email,password);
-      return session;
-      }
-    return res;
-    } catch (error) {
-      
-    }
-  }
+   
 
                             async logout() {
                               try {
