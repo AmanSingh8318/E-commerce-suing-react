@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { ALogin, Cart, Kids, Layout, Shop, SingleProduct, Women } from '../Products/index';
 // import Men from './Componenet/Men';
 import Login from '../Header/Login';
+import User_card from '../Header/User_card';
 import Verify from '../Header/Verify';
 import Men from '../Products/Men';
 function Routing_setup() {
@@ -46,6 +47,9 @@ function Routing_setup() {
         {
           path:'/login',
           element:<Login/>
+        },{
+          path:'/user',
+          element:<User_card/>
         }
       ],
     },

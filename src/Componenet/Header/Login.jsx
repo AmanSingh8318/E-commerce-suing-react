@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import '../Home.css';
 import { StoreContext } from '../Store/store';
 
@@ -14,10 +14,13 @@ const {login}=useContext(StoreContext)
   return (
    <> 
          
-     {userData &&userStatus?
+     {userData &&userData?
         <div className='card'>
         <div className='card-header'>
-        <i className="user-icon"></i>       
+         {<NavLink to='/user'>
+                  <i className="user-iconss"></i>
+        
+                    </NavLink>}      
            <h2 style={{textAlign:"center"}}>Welcome  {userData&& userData.name}</h2>
         </div>
         <div className ='card-body'>

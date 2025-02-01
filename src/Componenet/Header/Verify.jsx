@@ -47,7 +47,7 @@ function Verify() {
  }
           },[verfied])
      
-       
+                         
   return (
     <div>
       {message}

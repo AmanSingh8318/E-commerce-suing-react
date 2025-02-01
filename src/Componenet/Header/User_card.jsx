@@ -11,10 +11,10 @@ function User_card() {
     {userData && userData? 
      <div className='card'>
      <div className='card-header'>
-     <i className="user-icon"></i>
+     <h2 style={{textAlign:"center"}}>Welcome  {userData&& userData.name}</h2>
 
          {<NavLink to='/user'>
-            <h2 style={{textAlign:"center"}}>Welcome  {userData&& userData.name}</h2>
+          <i className="user-iconss"></i>
 
             </NavLink>}
      </div>

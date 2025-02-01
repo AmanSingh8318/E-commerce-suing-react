@@ -1,9 +1,9 @@
 body{
     background-color:rgba(14, 13, 13, 0.067);
-    /* overflow-x: hidden; */
+    overflow-x: hidden;
     /* overflow: hidden; */
         /* overflow-y: hidden;  */
-        overflow: auto;
+        /* overflow: auto; */
 
 }
 *{

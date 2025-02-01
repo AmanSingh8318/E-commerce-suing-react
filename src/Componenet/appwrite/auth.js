@@ -1,5 +1,4 @@
 import { Account, Client, ID } from "appwrite";
-import { toast } from "react-toastify";
 import ev from '../../ev_store/ev';
 export class AuthService {
   client = new Client();
@@ -19,7 +18,7 @@ export class AuthService {
         if (userAccount) {
             await this.account.createEmailPasswordSession(email, password);
             await this.account.createVerification("http://localhost:5173/verify");
-            toast.success("verfication email is sent")
+            // toast.success("verfication email is sent")
           // return userAccount;
         }
     } catch (error) {
@@ -68,8 +67,8 @@ export class AuthService {
     } catch (error) {
       
     }
-  }                      
-
+  }                         
+                                           
   async getCurrentUser() {
    try {
     // get the current user 
