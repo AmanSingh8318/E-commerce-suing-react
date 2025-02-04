@@ -65,7 +65,7 @@ useEffect(() => {
   const getUser = async () => {
     setUserStatus(true);
     const user = await authService.getCurrentUser();
-    if (user) {
+    if (user && user.emailVerification) {
       setUserData(user);
     }
     setUserStatus(false);
@@ -79,7 +79,7 @@ useEffect(() => {
                                             // setUserStatus(true);
 
                                             const existingUser = await authService.getCurrentUser();
-                                            if (existingUser) {
+                                            if (existingUser && existingUser) {
                                               toast.warning("User already exists. Please login.");
                                               return; // Stop further execution
                                             }
@@ -113,10 +113,12 @@ useEffect(() => {
     });
    const user= await authService.getCurrentUser();
     // Get user data
-   if (user ) {
-    setUserData(user);
-
+   if (!user && !user.emailVerification ) {
+    setUserData(null);
+    await authService.logout();
+    // toast.warning("pls verify")
    }
+   setUserData(user)
     toast.success("Login successful!");
     return session;
   } catch (error) {

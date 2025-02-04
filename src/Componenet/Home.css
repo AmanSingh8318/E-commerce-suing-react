@@ -845,3 +845,153 @@ input[type="submit"]:hover {
 /* .userdata-nav{
   font-size: 18px;
 } */
+
+/*   style of single product (productinfo/SIngleProduct.jsx/ Single_product.css) */
+.product-main-sec {
+  display: flex;
+  height: 95vh;
+  width: 90%;
+  margin-top: 2rem;
+  margin-left: 2rem;
+  border-bottom: 3px solid black;
+
+}
+
+.product-infos-sec1 {
+  display: flex;
+  flex-direction: column;
+  /* width: 40%; */
+  margin-left: 3rem;
+  gap: 0.5rem;
+}
+
+.product-infos-sec1 img {
+  width: 140px;
+  height: 140px;
+  object-fit: contain;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.main-img {
+  display: flex;
+  height: 80vh;
+  margin-top: 0.4rem;
+  border-radius: 50px;
+  margin-right: 17rem;
+  box-shadow: 0 0 10px rgba(216, 110, 110, 0.2);
+  object-fit: cover;
+  width: 20%;
+}
+
+.right-p {
+   width:100%;
+   display: flex;
+   flex-direction: column;
+   height: 100%;
+}
+
+.right-p-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+}
+
+.right-p-info p
+{
+      font-size: 25px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      margin-top: 2rem;
+    color: #333;
+}
+.rating-info{
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0. 5rem;
+}
+.rating-info img{
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+.icon-price{
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.2rem;
+}
+.icon-price .new{
+  color: red;
+  font-size: 18px;
+  font-weight: bold;
+  margin-right: 0.5rem;
+}
+.icon-price .old{
+  color: rgb(10, 10, 10);
+  font-size: 18px;
+  font-weight: bold;
+}
+.desc p{
+  font-size: 16px;
+  color: #0e0d0d;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  line-height: 1.6;
+  letter-spacing: 0.2px;
+  word-spacing: 0.2px;
+  text-align: justify;
+}
+.size p{
+  font-size: 20px;
+  color: #140707;
+  margin-left: 1.5rem;
+}
+.size button{
+  background-color: #f3eaea;
+  color: #111111;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  font-size: 18px;
+  font-weight: 700;
+  margin-left: 1.4rem;
+  box-shadow: 0 0 10px rgba(216, 110, 110, 0.6);
+}
+.size button.active{
+  background-color: #111111;
+  color: #f3eaea;
+  box-shadow: 0 0 10px rgba(216, 110, 110, 0.8);
+}
+.button-p  .btn-p{
+  
+height: 3.3rem;
+width: 14rem;
+background-color: #f70707;
+border-radius: 10px;
+color: #fff;
+font-size: 18px;
+cursor: pointer;
+margin-top: 2rem;
+margin-left: 1.5rem;
+box-shadow: 0 0 10px rgba(216, 110, 110, 0.6);
+transition: background-color 0.3s ease;
+&:hover{
+  background-color: #d40707;
+}
+}
+
+
+/* Single products(related ) */
+.rel-h2{
+font-size: 28px;
+font-weight: bold;
+margin-bottom: 1rem;
+margin-top: 1rem;
+text-align: center;
+color: #140707;
+text-transform: capitalize;
+letter-spacing: 0.8px;
+text-decoration: underline;
+}

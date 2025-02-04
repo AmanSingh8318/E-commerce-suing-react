@@ -10,7 +10,7 @@ function Verify() {
   const navigate=useNavigate();
 // const{}=useContext(StoreContext)
   // take the verfication from the auth service 
-       const VerifyEmails=async(id,secret)=>{
+       const VerifyEmail=async(id,secret)=>{
             try {
              await appwriteService.updateVerification({id,secret});
                
@@ -31,7 +31,9 @@ function Verify() {
         const id=searchParams.get("userId")
         const secretCode=searchParams.get('secret');
           if (id&&secretCode) {
-             VerifyEmails(id,secretCode);
+             VerifyEmail(id,secretCode);
+          }else{
+             appwriteService.logout();
           }
       },[])
 

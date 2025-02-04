@@ -1,7 +1,8 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import all_product from '../Assets/all_product';
-import "./SingleProduct.css";
+import "../Home.css";
+
 function Realted() {
   let imgData = all_product;
 // using the slice method filter only 4 products from each section

@@ -18,9 +18,16 @@ export class AuthService {
         if (userAccount) {
             await this.account.createEmailPasswordSession(email, password);
             await this.account.createVerification("http://localhost:5173/verify");
+
             // toast.success("verfication email is sent")
           // return userAccount;
-        }
+        } 
+        //  const user=await this.account.getCurrentUser();
+        //    if (user) {
+        //     await this.account.login({email,password})
+
+        //    }
+
     } catch (error) {
         console.error(error);
     }
@@ -39,11 +46,12 @@ export class AuthService {
        console.log(current_User.emailVerification);
 
         // if user is not verified return false and some error msg
-       if (!current_User.emailVerification) {
-        return { success: false, message: "Email not verified. Please verify your email." };  
-      }
-      return { success: true, session };
-
+         if (current_User ) {
+          return {success:true,session};
+         }else{
+            await this.account.logout();
+         }
+     
        
     } catch (error) {
       throw error;
@@ -75,7 +83,8 @@ export class AuthService {
    const session= await this.account.get();
    console.log("session in auth getcurrentuser",session);
    
-       if (!session) {
+       if (!session && !session.emailVerification) {
+        await this.account.deleteSessions();
         return null;
        }
        return session;
