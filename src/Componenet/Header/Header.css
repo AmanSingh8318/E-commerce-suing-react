@@ -1,7 +1,8 @@
 header{
     height: 15vh;
-    /* background-color: #cec5d6; */
-    background-color:#E3F2FD;
+    background-color: #cec5d6;
+    /* background-color:#E3F2FD; */
+
     padding: 20px;
     box-sizing: border-box;
     position: sticky;
@@ -59,7 +60,7 @@ header{
 }
 .btn{
     padding: 10px 20px;
-    background-color: #ecb009;
+    background-color: #07d67c;
     color: white;
     border: none; 
     cursor: pointer;
