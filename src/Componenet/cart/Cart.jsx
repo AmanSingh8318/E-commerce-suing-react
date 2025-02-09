@@ -27,7 +27,7 @@ function Cart() {
 
         </div>
   {   all_product.map((img)=>{
-    if(cartitems[img.id]>0){
+    if(cartitems[img&&img.id]>0){
       return (
         <div key={img.id} className='cart-store-item'>
         <div className='cart-item'>
