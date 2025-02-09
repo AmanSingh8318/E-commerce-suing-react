@@ -220,7 +220,7 @@ const getDefaultCart = () => {
       setTimeout(() => {
 // Reset cart to default after order
         setcartitem(getDefaultCart());
-       window.location.href="/login"
+      //  window.location.href="/login"
       // navigate('/')
             }, 7000);
     } else {
