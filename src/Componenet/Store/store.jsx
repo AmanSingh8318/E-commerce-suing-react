@@ -220,8 +220,8 @@ const getDefaultCart = () => {
       setTimeout(() => {
 // Reset cart to default after order
         setcartitem(getDefaultCart());
-      //  window.location.href="/login"
-      // navigate('/')
+       window.location.href="/login"
+      navigate('/')
             }, 7000);
     } else {
       toast("Your cart is empty! Please buy something.");
@@ -230,9 +230,7 @@ const getDefaultCart = () => {
 
   // Return the StoreContext.Provider with values
   return (
-    // <StoreContext.Provider value={{
-    //   // Notification
-    // </StoreContext.Provider>
+    
     <StoreContext.Provider value={{
       addCart,
         removeCart,
