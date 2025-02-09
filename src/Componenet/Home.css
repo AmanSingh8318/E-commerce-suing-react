@@ -534,42 +534,51 @@ line-height: 0;
 }
 
 /* Form Section */
+/* 🔹 Base Styles (Desktop & Large Screens) */
 .form-rel {
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 1rem;
   margin-top: 2rem;
   width: 100%;
   max-width: 500px;
+  flex-wrap: wrap; /* Ensures items wrap on smaller screens */
 }
 
+/* Input Field */
 .form-rel input {
   padding: 0.5rem;
   border-radius: 10px;
   width: 100%;
-  height: 1.6rem;
+  height: 2.2rem;
   font-size: 1rem;
   border: 1px solid #ccc;
+  transition: all 0.3s ease;
 }
 
+/* Placeholder Text */
 .form-rel input::placeholder {
   font-size: 1rem;
   color: #000;
   font-weight: 700;
 }
 
+/* Input Hover Effect */
 .form-rel input:hover {
   background-color: rgb(179, 85, 4);
+  color: white;
 }
 
 /* Submit Button */
 .btn-sub {
   background-color: #1a1818;
   color: #fff;
-  padding: 25px 25px;
+  padding: 15px 25px;
+  font-size: 1rem;
   border: none;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease;
   border-radius: 30px;
   display: flex;
   justify-content: center;
@@ -579,6 +588,92 @@ line-height: 0;
 
 .btn-sub:hover {
   background-color: #e92020;
+  transform: scale(1.05);
+}
+
+/* --------------------------------- */
+/* 🔹 Fully Responsive Design */
+/* --------------------------------- */
+
+/* ✅ Medium Screens (max-width: 1064px) */
+@media (max-width: 1064px) {
+  .form-rel {
+    max-width: 450px;
+    gap: 0.8rem;
+  }
+
+  .form-rel input {
+    height: 2rem;
+    font-size: 0.9rem;
+  }
+
+  .btn-sub {
+    padding: 12px 20px;
+    font-size: 0.9rem;
+  }
+}
+
+/* ✅ Tablets (max-width: 768px) */
+@media (max-width: 768px) {
+  .form-rel {
+    flex-direction: column;
+    align-items: center;
+    max-width: 400px;
+  }
+
+  .form-rel input {
+    width: 100%;
+    height: 2rem;
+    font-size: 0.9rem;
+  }
+
+  .btn-sub {
+    width: 100%;
+    max-width: 200px;
+    padding: 12px 20px;
+    font-size: 0.9rem;
+    margin-left: 0;
+  }
+}
+
+/* ✅ Mobile Screens (max-width: 480px) */
+@media (max-width: 480px) {
+  .form-rel {
+    max-width: 350px;
+    gap: 0.6rem;
+  }
+
+  .form-rel input {
+    height: 1.8rem;
+    font-size: 0.85rem;
+    border-radius: 8px;
+  }
+
+  .btn-sub {
+    max-width: 180px;
+    padding: 10px 18px;
+    font-size: 0.85rem;
+    border-radius: 25px;
+  }
+}
+
+/* ✅ Extra Small Screens (max-width: 364px) */
+@media (max-width: 364px) {
+  .form-rel {
+    max-width: 300px;
+    gap: 0.5rem;
+  }
+
+  .form-rel input {
+    height: 1.6rem;
+    font-size: 0.8rem;
+  }
+
+  .btn-sub {
+    max-width: 160px;
+    padding: 8px 16px;
+    font-size: 0.8rem;
+  }
 }
 
 /* Footer Section */
@@ -760,17 +855,41 @@ line-height: 0;
     height: 100%;
     width: 80%;
   } */
+  /* Default Styles (Desktop) */
+.banner-w {
+  height: 50vh; /* Default height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.banner-w img {
+  object-fit: cover;
+  width: 100%;  /* Ensure full width */
+  max-width: 100%;
+}
+
+/* Tablets (max-width: 1024px) */
+@media (max-width: 1024px) {
   .banner-w {
-    height: 50vh;
-    width: 100%;
+      height: 40vh;
   }
-  
-  .banner-w img {
-    height: 100%;
-    width: 100%;
-    object-fit: contain;
-    /* margin-left: 5rem; */
+}
+
+/* Mobile Screens (max-width: 768px) */
+@media (max-width: 768px) {
+  .banner-w {
+      height: 30vh;
   }
+}
+
+/* Small Mobile (max-width: 480px) */
+@media (max-width: 480px) {
+  .banner-w {
+      height: 20vh;
+  }
+}
+
   
 .copy{
   display: flex;
@@ -1049,7 +1168,7 @@ input[type="submit"]:hover {
 .product-btn button:hover {
   background-color: #3e8e41;
 }
-/* Desing search box */
+Desing search box
 .inptext{
   display: flex;
   justify-content: center;
@@ -1166,6 +1285,9 @@ input[type="submit"]:hover {
 } */
 
 /*   style of single product (productinfo/SIngleProduct.jsx/ Single_product.css) */
+
+
+/* Base Styles (For Large Screens - Desktop) */
 .product-main-sec {
   display: flex;
   height: 95vh;
@@ -1313,4 +1435,100 @@ color: #140707;
 text-transform: capitalize;
 letter-spacing: 0.8px;
 text-decoration: underline;
+}
+@media (max-width: 1194px) {
+  .product-main-sec {
+    display: flex;
+    flex-wrap: nowrap;
+  }
+  .main-img {
+    height: 60vh;
+  }
+  
+
+  
+  .desc p {
+    display: none;
+  }
+  .right-p{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+  }
+   .size{
+    margin-right: 2rem;
+   }
+   .size button{
+    width: 3.4rem;
+    text-align: center;
+   }
+   .button-p .btn-p {
+		width: 12rem;
+		height: 3rem;
+		font-size: 16px;
+    margin-bottom: 2rem;
+    margin-right: 3rem;
+	}
+  .product-infos-sec1::nth-child(4){
+    display: none;
+  }
+  
+}
+
+ @media (max-width:768px) {
+   .product-infos-sec1{
+    display: none;
+   }
+   .main-img{
+    height: 55vh;
+    box-shadow: 0 0 10px rgba(0, 0, 100px, 0.8);
+    }
+    .right-p-info p{
+      font-size:15px ;
+    }
+    .button-p .btn-p{
+      width: 100%; /* Full width on small screens */
+		max-width: 10rem; /* Keep a max width */
+		height: 2.8rem;
+		font-size: 15px;
+		margin-left: auto;
+		margin-right: auto;
+    }
+    .product-main-sec{
+      height: 80vh;
+    }
+ }
+
+@media (max-width: 480px) {
+  .product-infos-sec1 {
+     display: none; 
+  }
+
+  .main-img {
+     height: 50vh; 
+     box-shadow: 0 0 8px rgba(0, 0, 100, 0.6);
+     border-radius: 20px;
+  }
+
+  .right-p-info p {
+     font-size: 14px; 
+     text-align: center; 
+  }
+
+  .button-p .btn-p {
+     width: 100%; 
+     max-width: 8rem; 
+     height: 2.5rem;
+     font-size: 14px;
+     margin-top: 1.5rem;
+     margin-left: auto;
+     margin-right: auto;
+  }
+
+  .product-main-sec {
+     height: auto; 
+     flex-direction: column; 
+     align-items: center;
+     padding: 1rem;
+  }
 }
