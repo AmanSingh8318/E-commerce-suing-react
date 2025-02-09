@@ -17,7 +17,7 @@ export class AuthService {
 
         if (userAccount) {
             await this.account.createEmailPasswordSession(email, password);
-            await this.account.createVerification("http://localhost:5173/verify");
+            await this.account.createVerification(`${window.location.origin}/verify`);
 
             // toast.success("verfication email is sent")
           // return userAccount;
