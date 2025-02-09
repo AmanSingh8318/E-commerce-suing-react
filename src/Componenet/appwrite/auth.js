@@ -17,7 +17,7 @@ export class AuthService {
 
         if (userAccount) {
             await this.account.createEmailPasswordSession(email, password);
-            await this.account.createVerification(`${window.location.origin}/verify`);
+            await this.account.createVerification("https://shopper-am.netlify.app/verify");
 
             // toast.success("verfication email is sent")
           // return userAccount;
