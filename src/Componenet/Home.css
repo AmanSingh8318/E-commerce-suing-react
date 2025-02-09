@@ -1,16 +1,23 @@
 body{
     background-color:rgba(14, 13, 13, 0.067);
-    overflow-x: hidden;
-    overflow: hidden;
-        /* overflow-y: hidden;  */
-        /* overflow: auto; */
+    
 
 }
-*{
+html, body {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+* {
+  box-sizing: border-box;
+  max-width: 100%;
+  font-family: 'Poppins',sans-serif,Arial, Helvetica, sans-serif;
   margin: 0;
   padding: 0;
-  font-family: 'Poppins',sans-serif,Arial, Helvetica, sans-serif;
-  
+}
+
+body::-webkit-scrollbar {
+  display: none;
 }
 
 /* Main Section */
