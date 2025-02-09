@@ -92,9 +92,7 @@ useEffect(() => {
                                              })
                                              setUserStatus(true)
                                              toast("email verfication sent on email")
-                                            //  window.location.href="/login"
                                               console.log(user);
-                                              // setUserData(user);
 
                                            } catch (error) {
                                             console.log(error);
@@ -116,11 +114,11 @@ useEffect(() => {
    if (!user && !user.emailVerification ) {
     setUserData(null);
     await authService.logout();
-    // toast.warning("pls verify")
-   }
+   }else{
    setUserData(user)
     toast.success("Login successful!");
     return session;
+   }
   } catch (error) {
     console.error("Login Error:", error);
     toast.error("Invalid credentials! Please check your email and password.");

@@ -30,6 +30,8 @@ function Verify() {
       useEffect(()=>{
         const id=searchParams.get("userId")
         const secretCode=searchParams.get('secret');
+        window.open(window.location.href, "_blank", "noopener,noreferrer");
+         window.close();
           if (id&&secretCode) {
              VerifyEmail(id,secretCode);
           }else{
