@@ -14,8 +14,8 @@ function Men() {
       <section>
                 <div className="pop-women-img">
             <div className="pop-women2-img">
-              {imgData.map((img) => (
-                img.category === "men" && (
+              {imgData&&imgData.map((img) => (
+                img&&img.category === "men" && (
                   
                     <NavLink style={{textDecoration:"none",color:"black"}} to={`/product/${img.id}`}>
                   <div key={img.id} className="product-img">

@@ -53,9 +53,9 @@ function Shop() {
                     <div className="pop-women">
                           <h2>POPULAR IN WOMEN</h2>
                           <div className="pop-women2">
-                          {imgRes.map((img)=>(
+                          {imgRes&&imgRes.map((img)=>(
                              
-                            <div key={img.id} className="product">
+                            <div key={img&&img.id} className="product">
                               
                               <img src={img.image} alt="" />
                                 <div className="details">

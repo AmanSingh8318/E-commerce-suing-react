@@ -12,11 +12,11 @@ function Kids() {
       <section>
                 <div className="pop-women-img">
             <div className="pop-women2-img">
-              {imgData.map((img) => (
+              {imgData&&imgData.map((img) => (
                 img.category === "kid" && (
                   <NavLink style={{textDecoration:"none",color:"black"}} to={`/product/${img.id}`}>
 
-                  <div key={img.id} className="product-img">
+                  <div key={img&&img.id} className="product-img">
                     <img src={img.image} alt="" />
                     <div className="details">
                       <p>{img.name}</p>
