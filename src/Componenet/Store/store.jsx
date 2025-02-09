@@ -162,6 +162,12 @@ const getDefaultCart = () => {
   const [cartitems, setcartitem] = useState(getDefaultCart());
 
      const addCart=(id)=>{
+        if (!userData) {
+          plsLogin();
+          setTimeout(() => {
+            window.location.href="/login"
+          },200);
+        }
         setcartitem((prev)=>{
            let newcart={...prev}
 
